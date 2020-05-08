@@ -1,1 +1,18 @@
-<h2>new<h2>
+<h1>Add New Passenger</h1>
+	<%= form_with model: @passenger, class: "create_passenger" do |f| %>
+		<h4>Please provide the following information to register a new passenger:</h4>
+
+		<%= f.label :name %>
+		<%= f.text_field :name %>
+
+		<%= f.label :phone_num %>
+		<%= f.text_field :phone_num %>
+
+		# add the passenger's trips to a grid for display
+		# this may be a partial view from the Trip Details Page ??
+
+
+		<%= f.submit "Save Passenger", class: "passenger-button" %>
+
+	<% end %>
+

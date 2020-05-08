@@ -10,7 +10,7 @@ class PassengersController < ApplicationController
 			@passenger =  Passenger.find_by(id:id)
 	
 			if @passenger.nil?
-				redirect_to trips_path
+				redirect_to passengers_path
 				return
 			end
 		end
@@ -25,7 +25,14 @@ class PassengersController < ApplicationController
     end
 
 		def create 
-			@passenger = Passenger.new(params[:passenger]) #instantiate new passenger w/strong params
+			@passenger = Passenger.create(params[:passenger]) #instantiate new passenger w/strong params
+				if @passenger.save 
+					redirect_to passengers_path(@passenger.id)
+					return
+				else
+					render :new
+					return
+				end
     end
 
     def update

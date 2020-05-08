@@ -14,9 +14,8 @@ class PassengersController < ApplicationController
 				return
 			end
 		end
-  
-
-    def edit
+		
+		def edit
     end
 
 		def new # renders form for create method
@@ -24,8 +23,8 @@ class PassengersController < ApplicationController
 			@passenger = Passenger.new
     end
 
-		def create 
-			@passenger = Passenger.create(params[:passenger]) #instantiate new passenger w/strong params
+		def create
+			@passenger = Passenger.new(passenger_params) #instantiate new passenger w/strong params
 				if @passenger.save 
 					redirect_to passengers_path(@passenger.id)
 					return

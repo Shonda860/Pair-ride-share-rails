@@ -1,14 +1,12 @@
 <h2>Index-Driver page </h2>
-
 <% if @drivers.length > 0 %>
   <ul>
-    <% i = 0 %> 
     <% @drivers.each do |driver| %>
-    <li><%= link_to driver.name, driver_path(driver.id) %> Rating
+    <li><%= link_to driver.name, driver_path(driver.id) %>    Rating
     <%= link_to "Edit", edit_driver_path(driver.id) %> |
-        <%= link_to "Delete", driver_path(driver.id), method: :delete, data: { confirm: "Are you sure?" } %> </li>
-    </ul>
+        <%= link_to "Delete", driver_path(driver.id), method: :delete, data: { confirm: "Are you sure?" } %> </li> 
      <% end %>
+     </ul>
      <% else %>
         <h2>No Driver</h2>
 <% end %>

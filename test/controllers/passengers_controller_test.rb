@@ -6,8 +6,12 @@ describe PassengersController do
   }
   describe "index" do
     it "can get index" do
-    
+
+      # Act
+
       get passengers_path
+
+      # Assert
 
       must_respond_with :success
     end
@@ -25,14 +29,14 @@ describe PassengersController do
       must_respond_with :success
     end
     
-    # it "will redirect for an invalid task" do
+    it "will redirect for an invalid passenger" do
       
-    #   # Act
-    #   get task_path(-1)
+      # Act
+      get passenger_path(-1)
       
-    #   # Assert
-    #   must_respond_with :redirect
-    # end
+      # Assert
+      must_respond_with :redirect
+    end
   end
 
   describe "new" do

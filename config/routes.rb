@@ -2,6 +2,19 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   # root to: "drivers#index"
 
+  # TO DO: 
+    # refactor routes using resources
+    # remove all routes except custom routes
+    # something like this: 
+    # resources :passengers
+    # resources :drivers
+    # resources :trips
+
+  # TO DO:
+    # create a root_path
+    # root to: "something#index"
+
+
   get "/trips", to: "trips#index", as: :trips # all trips
   get "/trips/new", to: "trips#new", as: :new_trip
   post "/trips", to: "trips#create"

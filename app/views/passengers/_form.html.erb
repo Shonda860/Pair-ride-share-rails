@@ -1,13 +1,28 @@
 <%= form_with model: @passenger, class: "edit-passenger" do |f| %>
-<p>Please add/change the following information as needed:</p>
+	<p>Please provide the appropriate information:</p>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+	<% if @passenger.errors.any? %>
+  	<ul>
+    	<% @passenger.errors.each do |column, message| %>
+        <li>
+          <%= column %> <%= message %>
+        </li>
+      <% end %>
+		</ul>
+	<% end %> 
 
-  <%= f.label :phone %>
-  <%= f.text_field :phone_num %>
+	# TO DO:
+	# there is a styling issue here - when the list above prints the error 
+	# messages, the fields move down a line - looking really bad. 
+	# use css to keep the label 'attached' to the field
 
-  <%= f.submit action_name %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+
+	<%= f.label :phone %>
+	<%= f.text_field :phone_num %>
+
+	<%= f.submit action_name %>
 
 
 <% end %>

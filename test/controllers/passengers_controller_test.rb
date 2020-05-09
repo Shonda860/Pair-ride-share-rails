@@ -1,12 +1,38 @@
 require "test_helper"
 
 describe PassengersController do
+  let (:passenger) {
+    Passenger.create name: "sample passenger", phone_num: "555-555-5555"
+  }
   describe "index" do
-    # Your tests go here
+    it "can get index" do
+    
+      get passengers_path
+
+      must_respond_with :success
+    end
+
+    # need a test for it "can get root"
   end
 
   describe "show" do
-    # Your tests go here
+    it "can get a valid passenger" do
+      
+      # Act
+      get passengers_path(passenger.id)
+      
+      # Assert
+      must_respond_with :success
+    end
+    
+    # it "will redirect for an invalid task" do
+      
+    #   # Act
+    #   get task_path(-1)
+      
+    #   # Assert
+    #   must_respond_with :redirect
+    # end
   end
 
   describe "new" do

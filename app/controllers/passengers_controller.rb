@@ -56,7 +56,7 @@ class PassengersController < ApplicationController
 
     def destroy
 			Passenger.find_by(id: params[:id]).destroy
-			redirect_to passengers_path
+			redirect_to _path
 			return
 		end
 		

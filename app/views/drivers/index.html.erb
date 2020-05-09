@@ -4,10 +4,9 @@
   <ul>
     <% i = 0 %> 
     <% @drivers.each do |driver| %>
-    <li><%= driver.name %> Rating
+    <li><%= link_to driver.name, driver_path(driver.id) %> Rating
     <%= link_to "Edit", edit_driver_path(driver.id) %> |
         <%= link_to "Delete", driver_path(driver.id), method: :delete, data: { confirm: "Are you sure?" } %> </li>
- 
     </ul>
      <% end %>
      <% else %>

@@ -5,8 +5,8 @@ class DriversController < ApplicationController
 
   def show
     @driver = Driver.find_by(id: params[:id])
-    if @task.nil?
-      head :not_found
+    if @driver.nil?
+      redirect_to drivers_path
       return
     end
   end
@@ -29,7 +29,7 @@ class DriversController < ApplicationController
       driver_params
     )
     if driver.save
-      redirect_to task_path
+      redirect_to drivers_path
       return
     else
       render :new, :bad_request
@@ -43,9 +43,9 @@ class DriversController < ApplicationController
       head :not_found
       return
     elsif @driver.update(
-      task_parms
+      driver_parms
     )
-      redirect_to task_path
+      redirect_to driver_path
       return
       begin
         render :edit, :bad_request
@@ -57,16 +57,16 @@ class DriversController < ApplicationController
   def destroy
     driver_id = params[:id]
     @driver = Driver.find_by(id: driver_id)
-    if @task.nil?
+    if @driver.nil?
       head :not_found
       return
     else
       @driver.destroy
-      redirect_to tasks_path
+      redirect_to drivers_path
     end
   end
+end
 
-  # def driver_params
-  #   return params.require(:driver).permit(:name, :phone_num)
-  # end
+def driver_params
+  return params.require(:driver).permit(:name, :vin)
 end

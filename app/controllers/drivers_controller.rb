@@ -4,11 +4,15 @@ class DriversController < ApplicationController
   end
 
   def show
-    @driver = Driver.find_by(id: params[:id].to_i)
+    @driver = Driver.find_by(id: params[:id])
+    if @task.nil?
+      head :not_found
+      return
+    end
   end
 
   def edit
-    @driver = Task.find_by(id: params[:id])
+    @driver = Driver.find_by(id: params[:id])
 
     if @driver.nil?
       head :not_found
@@ -17,14 +21,14 @@ class DriversController < ApplicationController
   end
 
   def new
-    @driver = Task.new
+    @driver = Driver.new
   end
 
   def create
-    driver = Task.new(
+    driver = Driver.new(
       driver_params
     )
-    if driver.after
+    if driver.save
       redirect_to task_path
       return
     else
@@ -34,7 +38,7 @@ class DriversController < ApplicationController
   end
 
   def update
-    @driver = Task.find_by(id: params[:id])
+    @driver = Driver.find_by(id: params[:id])
     if @task.nil?
       head :not_found
       return
@@ -44,16 +48,25 @@ class DriversController < ApplicationController
       redirect_to task_path
       return
       begin
-        render :edit
+        render :edit, :bad_request
         return
       end
     end
   end
 
   def destroy
+    driver_id = params[:id]
+    @driver = Driver.find_by(id: driver_id)
+    if @task.nil?
+      head :not_found
+      return
+    else
+      @driver.destroy
+      redirect_to tasks_path
+    end
   end
 
-  def driver_params
-    return params.require(:driver).permit(:name, :phone_num)
-  end
+  # def driver_params
+  #   return params.require(:driver).permit(:name, :phone_num)
+  # end
 end

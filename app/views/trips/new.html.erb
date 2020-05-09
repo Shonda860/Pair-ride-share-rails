@@ -1,1 +1,27 @@
-<h2>new<h2>
+<h2>New Trip Page</h2>
+
+<%= form_with model: @trip, class: "trip-form" do |f| %>
+<p>Please provide the following infomation to create new Trip</p>
+ <%= f.label :driver_name %>
+  <%= f.text_field :driver_name %>
+
+  <%= f.label :date %>
+  <%= f.text_field :date %>
+ 
+  <%= f.label :cost %>
+  <%= f.text_field :cost %>
+
+  <%= f.label :date %>
+  <%= f.text_field :date %>
+
+   <%= f.label :passenger_name %>
+  <%= f.text_field :passenger_name %>
+
+
+   <%= f.label :rating %>
+  <%= f.text_field :rating %>
+
+  <%= f.submit "Add Trip", class: "trip-button" %>
+ 
+<% end %>
+

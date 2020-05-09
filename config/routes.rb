@@ -27,8 +27,8 @@ Rails.application.routes.draw do
   get "/passengers/new", to: "passengers#new", as: :new_passenger
   get "/passengers/:id", to: "passengers#show", as: :passenger
   patch "/passengers/:id", to: "passengers#update" 
-  put "/passengers/:id", to: "passengers#update" 
-  delete "/passengers/:id", to: "passengers#destroy"
+  put "/passengers/:id", to: "passengers#update", as: :update_passenger
+  delete "/passengers/:id", to: "passengers#destroy", as: :delete_passenger 
   get "/passengers/:id/edit", to: "passengers#edit", as: :edit_passenger
   delete "/passengers/:id", to: "passengers#destroy"
   patch "/passengers/:id", to: "passengers#update"

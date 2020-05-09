@@ -7,13 +7,13 @@
   <ul>
     <% @passengers.each do |passenger| %>
       <li>
-      <%= link_to passenger.name, passenger_path(passenger.id) %>
+      <span><%= link_to passenger.name, passenger_path(passenger.id) %></span>
+      <span><%= link_to "Rating |" %></span>
 
-      </li>
+        <span><%= link_to "Edit |", edit_passenger_path(passenger.id) %></span>
+            <span><%= link_to 'Delete!', delete_passenger_path(passenger.id) %></span>
+     </li>
     <% end %>
-  </ul>
-
-  <ul>
   </ul>
 
 <% else %>

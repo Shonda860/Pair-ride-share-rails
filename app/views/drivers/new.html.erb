@@ -1,1 +1,16 @@
-<h2>new<h2>
+<h2>New Driver Page<h2>
+
+<%= form_with model: @driver, class: "driver-form" do |f| %>
+<p>Please provide the following information to save a new
+driver to the database</p>
+
+<%= f.label :name %>
+<% f.text_field :name %>
+
+<%= f.label :vin %>
+<% f.text_field :name %>
+
+<%= f.label :status %>
+
+<%= f.submit "Add new driver", class: "driver-button" %>
+<% end %>

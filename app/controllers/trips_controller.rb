@@ -43,7 +43,7 @@ class TripsController < ApplicationController
   ​
 
   def destory
-    task_id = params[:id]
+    trip_id = params[:id]
     @trip = Trip.find_by(id: trip_id)
     if @trip.nil?
       head :not_found
@@ -63,7 +63,7 @@ class TripsController < ApplicationController
   ​
 
   def create
-    task = Trip.new(
+    trip = Trip.new(
       trip_params
     )
     if Trip.save

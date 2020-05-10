@@ -5,7 +5,7 @@ class PassengersController < ApplicationController
     end
 
 		def show # get one passenger
-			id = params[:id] # this is the id passed into the route
+			id = params[:id] 
 			@passenger =  Passenger.find_by(id:id)
 	
 			if @passenger.nil?
@@ -15,7 +15,7 @@ class PassengersController < ApplicationController
 		end
 		
 		def edit
-			id = params[:id] #this is the id passed into the route
+			id = params[:id] 
 			@passenger = Passenger.find_by(id:id)
 
 			if @passenger.nil?
@@ -34,7 +34,7 @@ class PassengersController < ApplicationController
 					redirect_to passenger_path(@passenger.id)
 					return
 				else
-					render :new
+					render :new 
 					return
 				end
 		end
@@ -43,14 +43,14 @@ class PassengersController < ApplicationController
 		def update
 			id = params[:id]
 			@passenger = Passenger.find_by(id:id)
-				if @passenger.nil?
+				if @passenger.nil? 
 					head :not_found
 					return 
 				elsif @passenger.update(passenger_params)
 					redirect_to passenger_path(@passenger.id) # return to index to view list of passengers
 					return
 				else #if the save fails
-					render :edit # show the edit form view again
+					render :edit  # show the edit form view again
 					return
 				end
     end
@@ -63,7 +63,7 @@ class PassengersController < ApplicationController
 		
 		private
 
-		def passenger_params #passenger_id needs to be added here? it's nil in db
+		def passenger_params
 			return params.require(:passenger).permit(:passenger_id, :name, :phone_num)
 		end
 

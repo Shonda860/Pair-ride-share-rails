@@ -1,9 +1,12 @@
-<h1>Passenger Details:</h1>
-<h3>Passenger ID: <%= @passenger.id %></h3>
-<h3>Passenger Name: <%= @passenger.name %></h3>
-<h3>Passenger Phone Number: <%= @passenger.phone_num %></h3>
+<h2>Passenger Details:</h2>
 
-<ul>
-<li><%= link_to "All Passengers", passengers_path %></li>
+<p>Passenger Name: <%= @passenger.name %></p>
+<p>Passenger ID: <%= @passenger.id %></p>
+<p>Passenger Phone Number: <%= @passenger.phone_num %></p>
+<p>Total Charges:<p>
+<p>All Trips:</p>
 
-</ul>
+<span><%= button_to "Edit", edit_passenger_path(@passenger.id) %></span>
+            <span><%= button_to('Delete!', delete_passenger_path(@passenger.id), {class: 'button', method: :delete, data: {confirm: 'Are you sure?'}, alt: 'delete passenger button'}) %></span>
+
+<span><%= button_to "Back to All Passengers", passengers_path %></span>

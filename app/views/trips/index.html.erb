@@ -1,1 +1,13 @@
-<h2>index<h2>
+  
+<h2>Index-Trip page </h2>
+<% if @trips.length > 0 %>
+
+    <% @trips.each do |trip| %>
+     <ul>
+    <li>Trip# <%= trip.id %> Date <%= trip.date %> Driver:<%= link_to trip.driver.name, driver_path(trip.driver_id) %> Passenger:<%= link_to trip.passenger.name, passenger_path(trip.passenger_id) %>   Cost $<%= trip.cost %>  Rating <%= trip.rating %>|<%= link_to "Edit trip", edit_trip_path(trip.id) %>|<%= link_to "View Trip", trip_path(trip.id) %></li>
+      </ul>
+     <% end %>
+   
+     <% else %>
+        <h2>No Trips</h2>
+<% end %>

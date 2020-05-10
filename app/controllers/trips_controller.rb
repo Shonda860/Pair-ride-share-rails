@@ -11,6 +11,8 @@ class TripsController < ApplicationController
     end
   end
 
+
+
   def update
     @trip = Trip.find_by(id: params[:id])
     if @trip.nil?
@@ -29,21 +31,20 @@ class TripsController < ApplicationController
 
   def edit
     @trip = Trip.find_by(id: params[:id])
-
     if @trip.nil?
       head :not_found
       return
     end
   end
 
+
   def destory
-    task_id = params[:id]
-    @trip = Trip.find_by(id: task_id)
+    trip_id = params[:id]
+    @trip = Trip.find_by(id: trip_id)
     if @trip.nil?
       head :not_found
       return
     else
-      @trip.destroy
       redirect_to trips_path
     end
   end
@@ -53,7 +54,7 @@ class TripsController < ApplicationController
   end
 
   def create
-    task = Trip.new(
+    trip = Trip.new(
       trip_params
     )
     if Trip.save
@@ -64,6 +65,7 @@ class TripsController < ApplicationController
       return
     end
   end
+
 
   # def mark_complete
   #   @trip = Trip.find_by(id: params[:id])
@@ -92,7 +94,10 @@ class TripsController < ApplicationController
   #     return     end
   # end
 
+
+  private
+
   def trip_params
-    return params.require(:task).permit(:name)
+    return params.require(:trip).permit(:passenger_id, :driver_id)
   end
 end

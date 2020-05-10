@@ -1,15 +1,22 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PairRideShareRails</title>
+    <title>RideShare Rails!</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "application", 'data-turbolinks-track': "reload" %>
   </head>
 
   <body>
-    <%= yield %>
+  <header>
+  <section class= "title"><h1>Rideshare Rails!</h1><%= link_to "Drivers", drivers_path %>
+  <%= link_to "Passengers", passengers_path %>
+   <section>
+   <header>
+  <main>
+    <%= yield %>  
+  <main>
   </body>
 </html>

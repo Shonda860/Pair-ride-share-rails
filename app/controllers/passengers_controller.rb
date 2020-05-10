@@ -15,9 +15,11 @@ class PassengersController < ApplicationController
     end
   end
 
+
   def edit
     id = params[:id]
     @passenger = Passenger.find_by(id: id)
+
 
     if @passenger.nil?
       redirect_to passengers_path
@@ -54,6 +56,7 @@ class PassengersController < ApplicationController
     else #if the save fails
       render :edit  # show the edit form view again
       return
+
     end
   end
 
@@ -63,8 +66,8 @@ class PassengersController < ApplicationController
     return
   end
 
-  private
 
+  private
   def passenger_params
     return params.require(:passenger).permit(:passenger_id, :name, :phone_num)
   end

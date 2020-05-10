@@ -1,1 +1,13 @@
-<h2>show<h2>
+<h2>Driver Show Page</h2>
+<% if @driver.trips.length > 0 %>
+<% @driver.trips.each do |trip| %>
+<li>
+ Trip id: <%= trip.id %>
+ Date:  <%= trip.date %>
+Passenger Name: <%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %>
+Rating:<%= trip.rating %>
+Earnings:<%= trip.cost %><p>
+    <% end %>
+ <% else %>
+      <p>No trips for this Driver</p>
+    <% end %>

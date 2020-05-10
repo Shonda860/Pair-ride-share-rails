@@ -6,7 +6,5 @@
 <p>Total Charges:<p>
 <p>All Trips:</p>
 
-<span><%= button_to "Edit", edit_passenger_path(@passenger.id) %></span>
-            <span><%= button_to('Delete!', delete_passenger_path(@passenger.id), {class: 'button', method: :delete, data: {confirm: 'Are you sure?'}, alt: 'delete passenger button'}) %></span>
 
-<span><%= button_to "Back to All Passengers", passengers_path %></span>
+<span><%= link_to "All Passengers", passengers_path %></span>

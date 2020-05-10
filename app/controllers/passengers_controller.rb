@@ -28,16 +28,18 @@ class PassengersController < ApplicationController
 			@passenger = Passenger.new
     end
 
-		def create
-			@passenger = Passenger.new(passenger_params) #instantiate new passenger w/strong params
-				if @passenger.save 
-					redirect_to passenger_path(@passenger.id)
-					return
-				else
-					render :new 
-					return
-				end
+	def create
+		passenger = Passenger.new(
+		  passenger_params
+		)
+		if passenger.save
+		  redirect_to passengers_path
+		  return
+		else
+		  render :new, :bad_request
+		  return
 		end
+	  end
 		
 
 		def update

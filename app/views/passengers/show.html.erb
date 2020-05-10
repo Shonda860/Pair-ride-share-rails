@@ -1,9 +1,9 @@
-<h2>show<h2>
-<h1>Here are the passenger details you requested:</h1>
+<h1>Passenger Details:</h1>
 <h3>Passenger ID: <%= @passenger.id %></h3>
 <h3>Passenger Name: <%= @passenger.name %></h3>
 <h3>Passenger Phone Number: <%= @passenger.phone_num %></h3>
 
 <ul>
-<li><%= button_to('All Passengers', passengers_path, {class: 'button', method: :get, alt: 'passengers button'}) %></li>
+<li><%= link_to "All Passengers", passengers_path %></li>
+
 </ul>

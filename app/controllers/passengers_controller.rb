@@ -37,7 +37,8 @@ class PassengersController < ApplicationController
 					render :new
 					return
 				end
-    end
+		end
+		
 
 		def update
 			id = params[:id]

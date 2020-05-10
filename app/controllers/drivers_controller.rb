@@ -39,18 +39,17 @@ class DriversController < ApplicationController
 
   def update
     @driver = Driver.find_by(id: params[:id])
-    if @task.nil?
+    if @driver.nil?
       head :not_found
       return
     elsif @driver.update(
-      driver_parms
+      driver_params
     )
       redirect_to driver_path
       return
-      begin
-        render :edit, :bad_request
-        return
-      end
+    else
+      render :edit
+      return
     end
   end
 

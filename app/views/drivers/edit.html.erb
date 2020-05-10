@@ -1,18 +1,4 @@
 <h2>Driver Edit Page<h2>
 
-<%= form_with model: @driver, class: "edit-task" do |f| %>
- <p>Please enter the following infomation you would like to edit:</p>
-
- <%= f.label :name %>
- <%= f.text_field :name %>
-
- <%= f.label :vin %>
- <%= f.text_field :vin %>
-
- <%= f.label :available %>
- <%= f.text_field :available %>
-
- <%= f.submit "Edit Driver", class: "edit-button" %>
- <% end %>
-<p><%= link_to "All Drivers", drivers_path %>
+<%= render partial: "form", locals: { action_name: "Edit" } %>
  

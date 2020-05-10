@@ -4,7 +4,7 @@
 
     <% @trips.each do |trip| %>
      <ul>
-    <li>Trip# <%= trip.id %> Date <%= trip.date %> Driver:<%= link_to trip.driver.name, driver_path(trip.driver_id) %> Passenger:<%= link_to trip.passenger.name, passenger_path(trip.passenger_id) %>|<%= link_to "Edit trip", edit_trip_path(trip.id) %>|<%= link_to "View Trip", trip_path(trip.id) %></li>
+    <li>Trip# <%= link_to trip.id, trip_path(trip.id) %> Date <%= trip.date %> Driver:<%= link_to trip.driver.name, driver_path(trip.driver_id) %> Passenger:<%= link_to trip.passenger.name, passenger_path(trip.passenger_id) %>|<%= link_to "Edit trip", edit_trip_path(trip.id) %>|<%= link_to "View Trip", trip_path(trip.id) %></li>
       </ul>
      <% end %>
    

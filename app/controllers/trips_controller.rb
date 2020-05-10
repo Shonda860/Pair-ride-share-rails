@@ -11,7 +11,7 @@ class TripsController < ApplicationController
     end
   end
 
-  ​
+
 
   def update
     @trip = Trip.find_by(id: params[:id])
@@ -29,18 +29,14 @@ class TripsController < ApplicationController
     end
   end
 
-  ​
-
   def edit
     @trip = Trip.find_by(id: params[:id])
-    ​
     if @trip.nil?
       head :not_found
       return
     end
   end
 
-  ​
 
   def destory
     trip_id = params[:id]
@@ -49,18 +45,13 @@ class TripsController < ApplicationController
       head :not_found
       return
     else
-      @trip.destory
       redirect_to trips_path
     end
   end
 
-  ​
-
   def new
     @trip = Trip.new
   end
-
-  ​
 
   def create
     trip = Trip.new(
@@ -75,7 +66,7 @@ class TripsController < ApplicationController
     end
   end
 
-  ​
+
   # def mark_complete
   #   @trip = Trip.find_by(id: params[:id])
   #   if @trip.nil?
@@ -88,7 +79,7 @@ class TripsController < ApplicationController
   #     redirect_to root_path
   #     return     end
   # end
-  ​
+
   # def unmark_complete
   #   @trip = Trip.find_by(id: params[:id])
   #   if @trip.nil?
@@ -97,15 +88,14 @@ class TripsController < ApplicationController
   #   else @trip.update(
   #     status: "not complete",
   #     completed_at: nil,
-  ​
+
   #   )
   #     redirect_to root_path
   #     return     end
   # end
 
-  private
 
-  ​
+  private
 
   def trip_params
     return params.require(:trip).permit(:passenger_id, :driver_id)

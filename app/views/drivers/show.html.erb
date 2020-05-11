@@ -20,7 +20,7 @@
     Date:  <%= trip.date %>
     Passenger Name: <%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %>
     Rating:<%= trip.rating %>
-    Earnings:$<%= trip.cost.to_f %>
+    Earnings:$<%= trip.cost.round(2).to_f %>
     <%= link_to("Delete", driver_path(@driver.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete driver button" }) %></li>
   <% end %>
     </ul>

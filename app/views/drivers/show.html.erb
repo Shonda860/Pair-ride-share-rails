@@ -1,9 +1,12 @@
 <h2>Driver Show Page</h2>
 
-<p> Driver Name: <%= @driver.name %></p>
-<p>Driver ID # <%= @driver.id %><p>
-<p> Avg Rating:<p>
 <p> Model:<p>
+ <p> Total Earnings: <%= @driver.driver_earnings %><p>  
+
+<p> Driver Name: <%= @driver.name %></p>
+<p> Avg Rating:<%= @driver.driver_avg_rating %><p>
+<p>Driver ID # <%= @driver.id %><p>
+
 <p> Driver Vin Number: <%= @driver.vin %><p>
-<p> Earnings:<p>
-<p> Status: <%= @driver.available %><p>
+
+

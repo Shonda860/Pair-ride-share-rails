@@ -1,6 +1,19 @@
 Rails.application.routes.draw do
+  # get 'homepages/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  # root to: "drivers#index"
+  root to: "homepages#index"
+
+  # TO DO:
+  # refactor routes using resources
+  # remove all routes except custom routes
+  # something like this:
+  # resources :passengers
+  # resources :drivers
+  # resources :trips
+
+  # TO DO:
+  # create a root_path
+  # root to: "something#index"
 
   get "/trips", to: "trips#index", as: :trips # all trips
   get "/trips/new", to: "trips#new", as: :new_trip
@@ -23,11 +36,17 @@ Rails.application.routes.draw do
   patch "/drivers/:id", to: "drivers#update"
 
   get "/passengers", to: "passengers#index", as: :passengers # all passengers
-  get "/passengers/new", to: "passengers#new", as: :new_tpassenger
   post "/passengers", to: "passengers#create"
-
+  get "/passengers/new", to: "passengers#new", as: :new_passenger
   get "/passengers/:id", to: "passengers#show", as: :passenger
+  patch "/passengers/:id", to: "passengers#update"
+  put "/passengers/:id", to: "passengers#update", as: :update_passenger
+  delete "/passengers/:id", to: "passengers#destroy", as: :delete_passenger
   get "/passengers/:id/edit", to: "passengers#edit", as: :edit_passenger
   delete "/passengers/:id", to: "passengers#destroy"
   patch "/passengers/:id", to: "passengers#update"
 end
+
+
+
+# This comment is for testing purposes only 

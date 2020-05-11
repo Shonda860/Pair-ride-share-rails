@@ -11,8 +11,6 @@ class TripsController < ApplicationController
     end
   end
 
-
-
   def update
     @trip = Trip.find_by(id: params[:id])
     if @trip.nil?
@@ -36,7 +34,6 @@ class TripsController < ApplicationController
       return
     end
   end
-
 
   def destory
     trip_id = params[:id]
@@ -66,7 +63,6 @@ class TripsController < ApplicationController
     end
   end
 
-
   # def mark_complete
   #   @trip = Trip.find_by(id: params[:id])
   #   if @trip.nil?
@@ -93,7 +89,6 @@ class TripsController < ApplicationController
   #     redirect_to root_path
   #     return     end
   # end
-
 
   private
 

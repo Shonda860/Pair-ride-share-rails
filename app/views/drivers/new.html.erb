@@ -1,4 +1,4 @@
-<h2>New Driver Page<h2>
+<h2>New Driver Page</h2>
 
 <%= form_with model: @driver, class: "driver-form" do |f| %>
 <p>Please provide the following information to save a new
@@ -10,7 +10,11 @@ driver to the database</p>
 <%= f.label :vin %>
 <%= f.text_field :vin %>
 
-<%= f.label :status %>
+<%= f.label :car_make %>
+<%= f.text_field :car_make %>
 
-<%= f.submit "Add new driver", class: "driver-button" %>
+<%= f.label :car_model %>
+<%= f.text_field :car_model %>
+
+<%= f.submit "Create", class: "driver-button" %>
 <% end %>

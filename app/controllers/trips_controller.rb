@@ -35,13 +35,14 @@ class TripsController < ApplicationController
     end
   end
 
-  def destory
+  def destroy
     trip_id = params[:id]
     @trip = Trip.find_by(id: trip_id)
     if @trip.nil?
       head :not_found
       return
     else
+      @trip.destroy
       redirect_to trips_path
     end
   end

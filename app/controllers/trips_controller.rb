@@ -1,17 +1,11 @@
 class TripsController < ApplicationController
-  def index # index means list all
-    @trips = Trip.all
-  end
-
-  def show
+  def show # may need a redirect for index
     @trip = Trip.find_by(id: params[:id].to_i)
     if @trip.nil?
       redirect_to trips_path
       return
     end
   end
-
-
 
   def update
     @trip = Trip.find_by(id: params[:id])
@@ -37,14 +31,14 @@ class TripsController < ApplicationController
     end
   end
 
-
-  def destory
+  def destroy
     trip_id = params[:id]
     @trip = Trip.find_by(id: trip_id)
     if @trip.nil?
       head :not_found
       return
     else
+      @trip.destroy
       redirect_to trips_path
     end
   end
@@ -65,7 +59,6 @@ class TripsController < ApplicationController
       return
     end
   end
-
 
   # def mark_complete
   #   @trip = Trip.find_by(id: params[:id])
@@ -93,7 +86,6 @@ class TripsController < ApplicationController
   #     redirect_to root_path
   #     return     end
   # end
-
 
   private
 

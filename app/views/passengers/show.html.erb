@@ -1,23 +1,24 @@
 <h2 class="title">Passenger Details:</h2>
     <span class="button_to"><%= link_to " Edit |", edit_passenger_path(@passenger.id) %></span>
-        <span class="button_to"><%= link_to "Delete", delete_passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
+        <span class="button_to"><%= link_to "Delete Passenger", delete_passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
+        <%= link_to "Request Ride", new_trip_path(@passenger.id) %>
 
 <p>Passenger Name: <%= @passenger.name %></p>
 <p>Passenger ID: <%= @passenger.id %></p>
 <p>Passenger Phone Number: <%= @passenger.phone_num %></p>
-<p>Total Charges: <%= number_to_currency(@passenger.total_charges)%><p>
+<p>Total Charges: <%= number_to_currency(@passenger.total_charges, precision: 2) %><p>
 
 <h2>Passenger Trips</h2>
 <% if @passenger.trips.length > 0 %>
 <ul>
   <% @passenger.trips.each do |trip| %>
     <li>
-    Trip id: <%= trip.id %>
+    Trip id: <%= link_to trip.id, trip_path(trip.id) %>
     Date:  <%= trip.date %>
     Driver Name: <%= link_to Driver.find_by(id: trip.driver_id).name, driver_path(trip.driver.id) %>
     Rating:<%= trip.rating %>
-    Total Cost:<%= number_to_currency(trip.cost / 100)%>
-    <%= link_to("Delete", passenger_path(@passenger.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete passenger button" }) %></li>
+    Total Cost:<%= number_to_currency(trip.cost / 100) %>
+    <%= link_to("Delete Trip", passenger_path(@passenger.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete passenger button" }) %></li>
   <% end %>
     </ul>
 <% else %>
@@ -25,3 +26,5 @@
 <% end %>
 
 <%= link_to "Back to All Passengers", passengers_path %>
+<%= link_to "->Back to All Drivers", drivers_path %>
+,

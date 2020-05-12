@@ -12,7 +12,7 @@
     <p> Avg Rating:<%= @driver.driver_avg_rating %><p>
   </div>
 </section>
-
+ <%= link_to("Delete Driver", driver_path(@driver.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete driver button" }) %></li>
 
 <h2>Driver Trips</h2>
 <% if @driver.trips.length > 0 %>
@@ -24,11 +24,12 @@
     Passenger Name: <%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %>
     Rating:<%= trip.rating %>
     Earnings:$<%= (((trip.cost.to_f / 100) * 0.8) - 1.65).round(2) %>
-    <%= link_to("Delete Driver", driver_path(@driver.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete driver button" }) %></li>
+    <%= link_to "Delete Trip", trip_path(trip.driver.id), method: :delete, data: { confirm: "Are you sure?" } %>
   <% end %>
     </ul>
 <% else %>
    <p>No trips for this Driver</p>
 <% end %>
 <span><%= link_to "Back to Drivers", drivers_path %></span>
+<%= link_to "Back to All Passengers", passengers_path %>
 

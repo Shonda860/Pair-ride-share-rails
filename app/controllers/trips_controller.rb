@@ -55,7 +55,7 @@ class TripsController < ApplicationController
       redirect_to trip_path(trip.id)
       return
     else
-      render :new, :bad_request
+      render :new, status: :bad_request
       return
     end
   end

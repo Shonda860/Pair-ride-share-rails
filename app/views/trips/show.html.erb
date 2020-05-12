@@ -4,7 +4,8 @@
 <p>Driver Name: <%= link_to @trip.driver.name, driver_path(@trip.driver.id) %></p>
 <p>Passenger Name: <%= link_to @trip.passenger.name, passenger_path(@trip.passenger.id) %></p>
 <p>Rating: <%= @trip.rating %><p>
-<p> Cost:$ <%= number_to_currency(@trip.cost) %><p>
+<p> Cost of Trip:$ <%= number_to_currency(@trip.cost / 100, precision: 2) %><p>
      
 <%= link_to "Edit Trip", edit_trip_path(@trip.id) %> |
 <%= link_to "Delete Trip", trip_path(@trip.id), method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Go to Portal", root_path %> 

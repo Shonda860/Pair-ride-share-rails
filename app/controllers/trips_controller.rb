@@ -93,7 +93,6 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-
     return params.require(:trip).permit(:passenger_id, :driver_id)
   end
 end

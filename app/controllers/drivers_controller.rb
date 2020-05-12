@@ -32,7 +32,7 @@ class DriversController < ApplicationController
       redirect_to drivers_path
       return
     else
-      render :new, :bad_request
+      render :new
       return
     end
   end

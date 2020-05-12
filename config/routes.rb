@@ -46,6 +46,4 @@ Rails.application.routes.draw do
   patch "/passengers/:id", to: "passengers#update"
 end
 
-
-
-# This comment is for testing purposes only 
+# This comment is for testing purposes only

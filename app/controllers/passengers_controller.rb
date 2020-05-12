@@ -70,6 +70,6 @@ end
 
 private
 
-  def passenger_params
-    return params.require(:passenger).permit(:passenger_id, :name, :phone_num)
-  end
+def passenger_params
+  return params.require(:passenger).permit(:passenger_id, :name, :phone_num)
+end

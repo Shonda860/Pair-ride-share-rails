@@ -43,7 +43,6 @@ Rails.application.routes.draw do
   put "/passengers/:id", to: "passengers#update", as: :update_passenger
   delete "/passengers/:id", to: "passengers#destroy", as: :delete_passenger
   get "/passengers/:id/edit", to: "passengers#edit", as: :edit_passenger
-  delete "/passengers/:id", to: "passengers#destroy"
   patch "/passengers/:id", to: "passengers#update"
 end
 

@@ -1,5 +1,3 @@
-# test test
-
 class PassengersController < ApplicationController
   def index #list all
     @passengers = Passenger.all
@@ -59,14 +57,19 @@ class PassengersController < ApplicationController
 
   def destroy
     # destroy a single passenger's trips and then destroy the passenger
-    passenger = Passenger.find_by(id: params[:id]).destroy
+    @passenger = Passenger.find_by(id: params[:id])
+    if @passenger.nil?
+      head :not_found
+      return
+    else
+      @passenger.destroy
     redirect_to passengers_path
-    return
+    end
   end
+end
 
-  private
+private
 
-  def passenger_params
-    return params.require(:passenger).permit(:passenger_id, :name, :phone_num)
-  end
+def passenger_params
+  return params.require(:passenger).permit(:passenger_id, :name, :phone_num)
 end

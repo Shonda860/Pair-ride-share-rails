@@ -1,13 +1,34 @@
 <h2>Driver Show Page</h2>
+
+<p> Driver Name: <%= @driver.name %></p>
+<p>Driver ID # <%= @driver.id %><p>
+
+<section>
+  <div>
+    <p> Model:<p>
+    <p> Total Earnings: $<%= @driver.driver_total_earnings %><p>  
+  </div>
+  <div>
+    <p> Avg Rating:<%= @driver.driver_avg_rating %><p>
+  </div>
+</section>
+
+
+<h2>Driver Trips</h2>
 <% if @driver.trips.length > 0 %>
-<% @driver.trips.each do |trip| %>
-<li>
- Trip id: <%= trip.id %>
- Date:  <%= trip.date %>
-Passenger Name: <%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %>
-Rating:<%= trip.rating %>
-Earnings:<%= trip.cost %><p>
-    <% end %>
- <% else %>
-      <p>No trips for this Driver</p>
-    <% end %>
+<ul>
+  <% @driver.trips.each do |trip| %>
+    <li>
+    Trip ID:# <%= link_to trip.id, trip_path(trip.id) %>
+    Date:  <%= trip.date %>
+    Passenger Name: <%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %>
+    Rating:<%= trip.rating %>
+    Earnings:$<%= (((trip.cost.to_f / 100) * 0.8) - 1.65).round(2) %>
+    <%= link_to("Delete Driver", driver_path(@driver.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete driver button" }) %></li>
+  <% end %>
+    </ul>
+<% else %>
+   <p>No trips for this Driver</p>
+<% end %>
+<span><%= link_to "Back to Drivers", drivers_path %></span>
+

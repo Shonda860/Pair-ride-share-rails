@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  # get 'homepages/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  # root to: "drivers#index"
+
+  root to: "homepages#index"
+
 
   # TO DO:
   # refactor routes using resources
@@ -41,6 +44,7 @@ Rails.application.routes.draw do
   put "/passengers/:id", to: "passengers#update", as: :update_passenger
   delete "/passengers/:id", to: "passengers#destroy", as: :delete_passenger
   get "/passengers/:id/edit", to: "passengers#edit", as: :edit_passenger
-  delete "/passengers/:id", to: "passengers#destroy"
   patch "/passengers/:id", to: "passengers#update"
 end
+
+# This comment is for testing purposes only

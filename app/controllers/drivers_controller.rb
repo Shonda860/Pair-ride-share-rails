@@ -32,7 +32,7 @@ class DriversController < ApplicationController
       redirect_to drivers_path
       return
     else
-      render :new, :bad_request
+      render :new
       return
     end
   end
@@ -65,6 +65,8 @@ class DriversController < ApplicationController
     end
   end
 end
+
+private
 
 def driver_params
   return params.require(:driver).permit(:name, :vin)

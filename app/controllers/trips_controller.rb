@@ -1,8 +1,4 @@
 class TripsController < ApplicationController
-  def index # index means list all
-    @trips = Trip.all
-  end
-
   def show
     @trip = Trip.find_by(id: params[:id].to_i)
     if @trip.nil?

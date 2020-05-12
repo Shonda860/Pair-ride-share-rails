@@ -52,7 +52,6 @@ class PassengersController < ApplicationController
     else #if the save fails
       render :edit  # show the edit form view again
       return
-
     end
   end
 

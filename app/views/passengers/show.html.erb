@@ -1,6 +1,5 @@
 <h2 class="title">Passenger Details:</h2>
-
-    <span class="button_to"><%= link_to "| Edit |", edit_passenger_path(@passenger.id) %></span>
+    <span class="button_to"><%= link_to " Edit |", edit_passenger_path(@passenger.id) %></span>
         <span class="button_to"><%= link_to "Delete", delete_passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
 
 <p>Passenger Name: <%= @passenger.name %></p>

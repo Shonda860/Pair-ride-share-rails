@@ -2,8 +2,8 @@ class Driver < ApplicationRecord
   has_many :trips
   validates :name, :vin, presence: true
 
-  def driver_earnings
-    (self.trips.sum { |trip| trip.cost } * 0.8 - 1.65).round(2)
+  def driver_total_earnings
+    (self.trips.sum { |trip| trip.cost / 100 * 0.8 - 1.65 }.round(2))
   end
 
   def driver_avg_rating

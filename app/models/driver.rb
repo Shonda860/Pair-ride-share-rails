@@ -1,4 +1,5 @@
 class Driver < ApplicationRecord
+
   has_many :trips
   validates :name, :vin, presence: true
 
@@ -13,4 +14,5 @@ class Driver < ApplicationRecord
       (self.trips.sum { |trip| trip.rating.to_f } / self.trips.length).round(2)
     end
   end
+
 end

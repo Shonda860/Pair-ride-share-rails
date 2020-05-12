@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  def show
+  def show # may need a redirect
     @trip = Trip.find_by(id: params[:id].to_i)
     if @trip.nil?
       redirect_to trips_path

@@ -1,5 +1,8 @@
 class Passenger < ApplicationRecord
   has_many :trips
-  # these two lines can go on the same line?
   validates :name, :phone_num, presence: true
+
+  def total_charges
+    (self.trips.sum { |trip| trip.cost } / 100)
+  end
 end

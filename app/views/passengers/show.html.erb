@@ -6,7 +6,7 @@
 <p>Passenger Phone Number: <%= @passenger.phone_num %></p>
 <p>Total Charges: <%= number_to_currency(@passenger.total_charges, precision: 2) %><p>
   <span class="button_to"><%= link_to " Edit |", edit_passenger_path(@passenger.id) %></span>
-  <span class="button_to"><%= link_to "Delete Passenger", passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
+  <span class="button_to"><%= link_to "Delete Passenger |", passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
   <%= link_to "Request Ride", passenger_trip_path({ passenger_id: @passenger.id }) %>
 </section>
 
@@ -45,6 +45,6 @@
 <% end %>
 </div>
 
-<%= link_to "Back to All Passengers", passengers_path %>
-<%= link_to "->Back to All Drivers", drivers_path %>
+<%= link_to "Back to All Passengers |", passengers_path %> 
+<%= link_to "Back to All Drivers", drivers_path %>
 

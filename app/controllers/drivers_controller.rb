@@ -53,8 +53,7 @@ class DriversController < ApplicationController
   end
 
   def destroy
-    driver_id = params[:id]
-    @driver = Driver.find_by(id: driver_id)
+    @driver = Driver.find_by(id: params[:id].to_i)
     if @driver.nil?
       head :not_found
       return
@@ -63,10 +62,10 @@ class DriversController < ApplicationController
       redirect_to drivers_path
     end
   end
-end
 
-private
+  private
 
-def driver_params
-  return params.require(:driver).permit(:name, :vin)
+  def driver_params
+    return params.require(:driver).permit(:name, :vin)
+  end
 end

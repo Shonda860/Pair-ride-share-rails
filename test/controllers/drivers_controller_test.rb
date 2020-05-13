@@ -2,9 +2,15 @@ require "test_helper"
 
 describe DriversController do
   # Note: If any of these tests have names that conflict with either the requirements or your team's decisions, feel empowered to change the test names. For example, if a given test name says "responds with 404" but your team's decision is to respond with redirect, please change the test name.
-  # let (:driver) {
-  #   Driver.create name: "driver sample", vin: "VIN99999999", available: true
-  # }
+ before do 
+  @driver = Driver.create(
+      driver: {
+        name: "Bobby Brown",
+        vin: "11223344",
+        available: true,
+      }
+  )
+ end
 
   describe "index" do
     it "responds with success when there are many drivers saved" do
@@ -33,15 +39,9 @@ describe DriversController do
     it "responds with success when showing an existing valid driver" do
       # Arrange
       # Ensure that there is a driver saved
-      driver = Driver.create(
-        {
-          name: "new driver",
-          vin: "newvin0000000",
-          available: true,
-        }
-      )
+      
       # Act
-      get drivers_path(driver.id)
+      get drivers_path(@driver.id)
       # Assert
 
       must_respond_with :success
@@ -73,14 +73,6 @@ describe DriversController do
       # Arrange
       # Set up the form data
 
-      driver_hash = {
-        driver: {
-          name: "Charlotte Adams",
-          vin: "Adams1232434",
-          available: true,
-        },
-      }
-
       # Act-Assert
       # Ensure that there is a change of 1 in Driver.count
       expect {
@@ -88,9 +80,9 @@ describe DriversController do
       }.must_change "Driver.count", 1
       # Assert
       # Find the newly created Driver, and check that all its attributes match what was given in the form data
-      new_driver = Driver.find_by(name: driver_hash[:driver][:name])
-      expect(new_driver.name).must_equal driver_hash[:driver][:name]
-      expect(new_driver.vin).must_equal driver_hash[:driver][:vin]
+      new_driver = Driver.find_by(@driver.id)
+      expect(new_driver.name).must_equal  "Bobby Brown",
+      expect(new_driver.id).must_equal @driver.id
       # Check that the controller redirected the user
 
       must_redirect_to driver_path(new_driver)
@@ -126,8 +118,8 @@ describe DriversController do
 
         # Assert
         expect {
-          get edit_driver_path(driver.id), params: driver_hash
-        }.must_equal driver_hash[:driver][:name]
+          get edit_driver_path(@driver.id), params: driver_hash
+        }.must_equal @driver.id[:driver][:name]
       end
 
       it "responds with redirect when getting the edit page for a non-existing driver" do
@@ -150,12 +142,10 @@ describe DriversController do
       # Ensure there is an existing driver saved
       # Assign the existing driver's id to a local variable
       new_driver = Driver.create(
-        {
-          name: "new driver",
-          vin: "newvin0000000",
-
-        }
+        name: "new driver",
+        vin: "newvin0000000",
       )
+
       new_driver_hash = {
         driver: {
           name: "Bad driver",
@@ -163,13 +153,13 @@ describe DriversController do
         },
       }
 
-      updated_driver = Driver.find_by(id: new_driver_hash.id)
+      updated_driver = Driver.find_by(id: new_driver.id)
 
       # Set up the form data
       # Act-Assert
       # Ensure that there is no change in Driver.count
       expect {
-        patch driver_path(new_driver.id), params: new_driver_hash
+        patch driver_path(update_driver.id), params: new_driver_hash
       }.must_differ "Driver.count", 0
       # Assert
       # Use the local variable of an existing driver's id to find the driver again, and check that its attributes are updated
@@ -229,7 +219,7 @@ describe "destroy" do
 
     # Arrange
     # Ensure there is an existing driver saved
-    driver
+    # driver
     # new_passenger = Passenger.create(
     #   {
     #     name: "new driver",
@@ -239,12 +229,14 @@ describe "destroy" do
     # )
     # trip_1 = Trip.create(driver_id: id, pasenger_id: new_passenger.id, date: Date.today, rating: 5, cost: nil)
     # trip_2 = Trip.create(driver_id: id, pasenger_id: new_passenger.id, date: Datte.today, rating: 1, cost: nil)
-
+    driver = Driver.create(
+      name: "new driver",
+      vin: "newvin0000000",
+    )
+    puts driver.id
     # Act-Assert
     # Ensure that there is a change of -1 in Driver.count
-    expect {
-      delete driver_path(driver.id)
-    }.must_differ "Driver.count", -1
+    expect { delete driver_path(driver.id) }.must_differ "Driver.count", -1
     # Assert
     # Check that the controller redirects
     must_redirect_to drivers_path

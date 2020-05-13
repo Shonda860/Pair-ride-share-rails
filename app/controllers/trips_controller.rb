@@ -43,7 +43,7 @@ class TripsController < ApplicationController
       return
     else
       @trip.destroy
-      redirect_to trips_path
+      redirect_to root_path
     end
   end
 
@@ -76,6 +76,6 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    return params.require(:trip).permit(:passenger_id, :driver_id, :date, :rating, :cost)
+    return params.require(:trip).permit(:passenger_id, :driver_id, :cost, :rating, :date)
   end
 end

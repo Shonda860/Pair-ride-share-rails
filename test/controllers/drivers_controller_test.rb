@@ -85,10 +85,9 @@ describe DriversController do
       new_driver = Driver.find_by(name: driver_hash[:driver][:name])
       expect(new_driver.name).must_equal driver_hash[:driver][:name]
       expect(new_driver.vin).must_equal driver_hash[:driver][:vin]
-      expect(new_driver.available).must_equal driver_hash[:driver][:available]
       # Check that the controller redirected the user
-      must_respond_with :redirect
-      must_redirect_to pasenger_path(new_passer.id)
+
+      must_redirect_to drivers_path
     end
 
     it "does not create a driver if the form data violates Driver validations, and responds with a redirect" do
@@ -136,6 +135,8 @@ describe DriversController do
         must_redirect_to drivers_path
       end
     end
+  end
+
 
     describe "update" do
       it "can update an existing driver with valid information accurately, and redirect" do
@@ -143,14 +144,20 @@ describe DriversController do
         # Arrange
         # Ensure there is an existing driver saved
         # Assign the existing driver's id to a local variable
-        new_driver = Driver.create(name: "new driver", vin: "newvin0000000", available: true)
+          driver = Driver.create(
+            {
+            name: "new driver",
+            vin: "newvin0000000", 
+            available: true
+            }
+          )
+          driver_id = Driver.find_by(name: "new driver").id
 
-        new_driver_path =
+        new_driver_hash =
           {
             driver: {
-              name: "new driver",
+              name: "Bad driver",
               vin: "newvin0000000",
-              available: true,
             },
           }
 
@@ -160,22 +167,31 @@ describe DriversController do
         # Ensure that there is no change in Driver.count
 
         expect {
-          patch driver_path(driver.id), params: driver_hash
+          patch driver_path(driver.id), params: new_driver_hash
         }.must_differ "Driver.count", 0
-
-        # Assert
+      # Assert
         # Use the local variable of an existing driver's id to find the driver again, and check that its attributes are updated
         # Check that the controller redirected the user
-        must_redirect_to driver_path
-        expect(Driver.last.name).must_equal driver_hash[:driver][:name]
-        expect(Driver.last.vin).must_equal driver_hash[:driver][:vin]
-        expect(Driver.last.available).must_equal driver_hash[:driver][:available]
+        # find_driver = Driver.last.id
+        driver = Driver.find(id: driver_id)
+        expect(driver.name).must_equal new_driver_hash[:driver][:name]
+        expect(driver.vin).must_equal new_driver_hash[:driver][:vin]
+        must_redirect_to driver_path(driver_id)
+
       end
 
       it "does not update any driver if given an invalid id, and responds with a 404" do
         # Arrange
         # Ensure there is an invalid id that points to no driver
         # Set up the form data
+        new_driver_hash =
+        {
+          driver: {
+            name: "Bad driver",
+            vin: "newvin0000000",
+            available: true,
+          },
+        }
 
         # Act-Assert
         # Ensure that there is no change in Driver.count
@@ -183,7 +199,7 @@ describe DriversController do
         # Assert
         # Check that the controller gave back a 404
         expect {
-          patch driver_path(-1), params: driver_hash
+          patch driver_path(-1), params: new_driver_hash
         }.must_differ "Driver.count", 0
 
         must_respond_with :not_found
@@ -203,7 +219,7 @@ describe DriversController do
         # Assert
         # Check that the controller redirects
 
-      # end
+      end
     end
   end
 
@@ -244,4 +260,4 @@ describe DriversController do
     #   # Check that the controller responds or redirects with whatever your group decides
     # end
 #   end
-# end
+

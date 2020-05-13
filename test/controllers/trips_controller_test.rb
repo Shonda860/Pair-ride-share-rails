@@ -1,23 +1,117 @@
 require "test_helper"
 
 describe TripsController do
+  before do 
+    @driver = Driver.create(
+      {
+      name: "Bobby Brown",
+      vin: "11223344",
+      available: true
+      }
+    )
+    @passenger = Passenger.create(
+      {
+      name: "Lion King",
+      phone_num: "xxxxxxxxxx",
+      }
+    )
+    @trip = Trip.create(
+      {
+      passenger_id: @passenger.id,
+      driver_id: @driver.id,
+      rating: 3,
+      cost: 1600,
+      date: Date.today
+      }
+    )
+  end
   describe "show" do
     # Your tests go here
+    it "can get a valid trip" do
+
+      get trip_path(@trip.id)
+
+      must_respond_with :success
+    end
   end
 
   describe "create" do
     # Your tests go here
+    it "can create a new trip" do
+
+      # Act-Assert
+      expect {
+        post passenger_trip_path(@passenger.id)
+      }.must_change "Trip.count", 1
+
+      # new_trip = Trip.find_by(driver_id: trip_hash[:trip][:driver_id])
+      # expect(new_trip.passenger_id).must_equal trip_hash[:trip][:passenger_id]
+
+      must_redirect_to trip_path(Trip.last.id)
+      passenger = Passenger.find_by(id: Trip.last.passenger_id)
+      driver = Driver.find_by(id: Trip.last.driver_id)
+
+      expect(passenger.name).must_equal "Lion King"
+      expect(driver.name).must_equal "Bobby Brown"
+    end
   end
 
+ 
   describe "edit" do
     # Your tests go here
-  end
+    it "can get the edit form for an existing trip" do
+      get edit_trip_path(1)
+    end
 
+    # Your code here
+    it "will respond with redirect when attempting to edit a nonexistant trip" do
+      get edit_trip_path(-1)
+
+      must_respond_with :not_found
+    end
+  end
   describe "update" do
-    # Your tests go here
+    it "will update a model with a valid post request" do
+      trip_id = Trip.last.id
+      new_driver = Driver.create({
+        name: "Willy Wonka",
+        vin: "56543234",
+        available: true
+      }
+      )
+
+      new_trip_hash = {
+        trip: {
+          rating: 5,
+          cost: nil,
+          driver_id: new_driver.id,
+
+        },
+      }
+      expect {
+        patch trip_path(trip_id), params: new_trip_hash
+    }.wont_change "Trip.count"
+
+      must_redirect_to trip_path(trip_id)
+
+      trip = Trip.find_by(id: trip_id)
+      expect(trip.driver_id).must_equal new_trip_hash[:trip][:driver_id]
+      expect(trip.rating).must_equal new_trip_hash[:trip][:rating]
+
+    end
+
   end
 
+ 
   describe "destroy" do
-    # Your tests go here
+    it "can get destroy" do
+      trip_id = Trip.last.id
+
+      expect{
+        delete trip_path(trip_id)
+    }.must_differ "Trip.count", -1
+      must_redirect_to root_path
+
+    end
   end
 end

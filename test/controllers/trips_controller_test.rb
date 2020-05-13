@@ -91,7 +91,7 @@ describe TripsController do
         patch trip_path(trip_id), params: new_trip_hash
       }.wont_change "Trip.count"
 
-      must_redirect_to trip_path(trip_id)
+      must_redirect_to passenger_path(@trip.passenger.id)
 
       trip = Trip.find_by(id: trip_id)
       expect(trip.driver_id).must_equal new_trip_hash[:trip][:driver_id]
@@ -107,38 +107,6 @@ describe TripsController do
         }.must_differ "Trip.count", -1
         must_redirect_to drivers_path
       end
-    end
-
-    describe "complete trip" do
-      let (:complete_trip) {
-        {
-          trip: {
-            rating: 3,
-          },
-        }
-      }
-      it "does not let passenger complete rating  while trip in progress" do
-        @trip.update(rating: nil)
-        expect { patch complete_trip(@trip.id), params: complete_trip }.wont_differ "Trip.count"
-        trip.reload
-        expect(@trip.rating).must_equal complete_trip[:trip][:rating]
-      end
-      it "changes a driver status to available" do
-        @trip.driver.update(available: false)
-
-        expect {
-          patch complete_trip(@trip.id), params: rate_trip_hash
-        }.wont_differ "Trip.count"
-      end
-
-      it "a trip is not updated if a trip does not have a valid passenger"
-
-      # expect {
-      #   id = -1
-      #   patch trip_path(id), params: complete_trip
-      # }.wont_differ "Trip.count"
-
-      # must_respond_with :not_found
     end
   end
 end

@@ -15,8 +15,7 @@ class TripsController < ApplicationController
     elsif @trip.update(
       trip_params
     )
-      redirect_to trip_path(@trip.id)
-
+      redirect_to passenger_path(@trip.passenger.id)
       return
     else
       render :edit, status: :bad_request
@@ -42,10 +41,6 @@ class TripsController < ApplicationController
       redirect_to drivers_path
     end
   end
-
-  # def new
-  #   @trip = Trip.new
-  # end
 
   def passenger_trip
     driver = Driver.available_driver

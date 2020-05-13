@@ -1,26 +1,27 @@
 <%= link_to "Edit Trip", edit_trip_path(@trip.id) %> |
-<%= link_to "Delete Trip", trip_path(@trip.id), method: :delete, data: { confirm: "Are you sure?" } %>
+<%= link_to "Delete Trip", trip_path(@trip.id), method: :delete, data: { confirm: "Are you sure?" } %> |
 <%= link_to "Go to Portal", root_path %> 
 
 
 <div class="container">
-<h2>Hover Rows</h2>
-<p>The .table-hover class enables a hover state on table rows:</p>            
-<table class="table table-hover">
+<h2>Trip Details</h2>          
+<table class="table-bordered">
     <thead>
     <tr>
-        <th>Trip ID:</th>
-        <th>Trip Date:</th>
-        <th>Driver Name:</th>
-        <th>Passenger Name:</th>
-        <th>Rating:</th>
-        <th>Cost of Trip:$</th>
-        </tr>
+        <th>Trip ID</th>
+        <th>Trip Date</th>
+        <th>Driver Name</th>
+        <th>Passenger Name</th>
+        <th>Rating</th>
+        <th>Cost of Trip</th>
+    </tr>
     </thead>
     <tbody>
     <tr>
         <td><%= @trip.id %></td>
         <td><%= @trip.date %></td>
+        <td><%= link_to @trip.driver.name, driver_path(@trip.driver.id) %></td>
+
         <td><%= link_to @trip.passenger.name, passenger_path(@trip.passenger.id) %></td>
         <td><%= @trip.rating %></td>
         <td><%= number_to_currency(@trip.cost / 100, precision: 2) %></td>

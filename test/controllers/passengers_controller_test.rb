@@ -100,8 +100,6 @@ describe PassengersController do
 
         },
       }
-      # Note:  If there was a way to fail to save the changes to a passenger, that would be a great
-      #        thing to test.
       expect {
         patch passenger_path(new_passenger.id), params: new_passenger_hash
       }.wont_change "Passenger.count"
@@ -113,24 +111,11 @@ describe PassengersController do
       expect(passenger.phone_num).must_equal new_passenger_hash[:passenger][:phone_num]
     end
 
-    # it "will respond with not_found for invalid ids" do
-    #   id = -1
-
-    #   expect {
-    #     patch passenger_path(id), params: new_passenger_hash
-    #   }.wont_change "Passenger.count"
-
-    #   must_respond_with :not_found
-    # end
-
-    # it "will not update if the params are invalid" do
-    #   # this test has not yet be covered
-    # end
   end
 
   describe "destroy" do
     it "can get destroy" do
-      get delete_passenger_path(passenger.id)
+      get passenger_path(passenger.id)
 
       must_respond_with :success
     end

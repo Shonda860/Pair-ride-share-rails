@@ -1,4 +1,5 @@
-<h2>Index-Driver page </h2>
+<h2 class="title">All Drivers listed here:</h2>
+<p class="subtitle">Click on a drivers name to view the passenger details:</p>
 <% if @drivers.length > 0 %>
   <ul>
     <% @drivers.each do |driver| %>
@@ -10,4 +11,5 @@
      <% else %>
         <h2>No Drivers in system</h2>
 <% end %>
+<%= link_to "Back to All Passengers", passengers_path %>
 

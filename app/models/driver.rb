@@ -1,6 +1,5 @@
 class Driver < ApplicationRecord
-
-  has_many :trips
+  has_many :trips, dependent: :nullify
   validates :name, :vin, presence: true
 
   def driver_total_earnings
@@ -14,5 +13,4 @@ class Driver < ApplicationRecord
       (self.trips.sum { |trip| trip.rating.to_f } / self.trips.length).round(2)
     end
   end
-
 end

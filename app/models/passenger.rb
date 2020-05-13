@@ -1,5 +1,5 @@
 class Passenger < ApplicationRecord
-  has_many :trips
+  has_many :trips, dependent: :nullify
   validates :name, :phone_num, presence: true
 
   def total_charges

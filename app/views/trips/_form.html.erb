@@ -1,0 +1,23 @@
+<%= form_with model: @trip, class: "edit-passenger" do |f| %>
+	<p>Please provide the appropriate information:</p>
+
+	<% if @trip.errors.any? %>
+  	<ul>
+    	<% @trip.errors.each do |column, message| %>
+        <li>
+          <%= column %> <%= message %>
+        </li>
+      <% end %>
+		</ul>
+	<% end %> 
+
+	<%= f.label :name %>
+	<%= f.text_field :passenger_name %>
+
+	<%= f.label :phone_num %>
+	<%= f.text_field :phone %>
+
+	<%= f.submit action_name %>
+
+
+<% end %>

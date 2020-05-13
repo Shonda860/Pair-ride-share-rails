@@ -32,7 +32,7 @@ class PassengersController < ApplicationController
       passenger_params
     )
     if @passenger.save
-      redirect_to passengers_path
+      redirect_to passenger_path(@passenger.id)
       return
     else
       render :new
@@ -63,7 +63,7 @@ class PassengersController < ApplicationController
       return
     else
       @passenger.destroy
-    redirect_to passengers_path
+      redirect_to passengers_path
     end
   end
 end

@@ -1,4 +1,7 @@
 class TripsController < ApplicationController
+  def index
+  end
+
   def show # may need a redirect for index
     @trip = Trip.find_by(id: params[:id].to_i)
     if @trip.nil?
@@ -43,20 +46,29 @@ class TripsController < ApplicationController
     end
   end
 
-  def new
-    @trip = Trip.new
-  end
+  # def new
+  #   @trip = Trip.new
+  # end
 
-  def create
-    trip = Trip.new(
-      trip_params
-    )
-    if Trip.save
-      redirect_to trip_path(trip.id)
-      return
-    else
-      render :new, :bad_request
-      return
+  def passenger_trips
+    driver = Driver.aviable_driver
+    if !driver.nil?
+      @trip = Trip.new(
+        date: Date.today,
+        rating: nil,
+        cost: 100,
+        passenger_id: params[:passenger_id],
+        driver_id: driver.id,
+      )
+      if @trip.save
+        trip_driver = Driver.find_by(id: @trip.driver_id)
+        trip_driver.update(available: false)
+        redirect_to trip_path(trip.id)
+        return
+      else
+        render :new, status: :bad_request
+        return
+      end
     end
   end
 

@@ -13,4 +13,8 @@ class Driver < ApplicationRecord
       (self.trips.sum { |trip| trip.rating.to_f } / self.trips.length).round(2)
     end
   end
+
+  def self.available_driver
+    all.select { |driver| driver.available == true }.first
+  end
 end

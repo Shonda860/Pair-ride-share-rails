@@ -10,6 +10,7 @@ describe DriversController do
     it "responds with success when there are many drivers saved" do
       # Arrange
       # Ensure that there is at least one Driver saved
+    
 
       # Act
       get drivers_path
@@ -21,11 +22,11 @@ describe DriversController do
     it "responds with success when there are no drivers saved" do
       # Arrange
       # Ensure that there are zero drivers saved
-
+      driver.destroy
       # Act
-
+      get drivers_path
       # Assert
-
+      must_respond_with :success
     end
   end
 
@@ -56,7 +57,7 @@ describe DriversController do
 
   describe "new" do
     it "responds with success" do
-      get new_driver_path
+    get new_passenger_path
 
       must_respond_with :success
     end
@@ -69,9 +70,9 @@ describe DriversController do
 
       driver_hash = {
         driver: {
-          name: "new driver",
-          vin: "newvin0000000",
-          available: nil,
+          name: "Charlotte Adams",
+          vin: "Adams1232434",
+          available: true,
         },
       }
 
@@ -82,19 +83,24 @@ describe DriversController do
       }.must_change "Driver.count", 1
       # Assert
       # Find the newly created Driver, and check that all its attributes match what was given in the form data
-      # Check that the controller redirected the user
       new_driver = Driver.find_by(name: driver_hash[:driver][:name])
       expect(new_driver.name).must_equal driver_hash[:driver][:name]
       expect(new_driver.vin).must_equal driver_hash[:driver][:vin]
       expect(new_driver.available).must_equal driver_hash[:driver][:available]
-
+      # Check that the controller redirected the user
       must_respond_with :redirect
-      must_redirect_to drivers_path
+      must_redirect_to pasenger_path(new_passer.id)
     end
 
     it "does not create a driver if the form data violates Driver validations, and responds with a redirect" do
       # Note: This will not pass until ActiveRecord Validations lesson
       # Arrange
+      driver_hash = {
+        driver: {
+          name: "Charlotte Adams",
+          available: true,
+        },
+      }
       # Set up the form data so that it violates Driver validations
 
       # Act-Assert
@@ -108,23 +114,13 @@ describe DriversController do
 
   describe "edit" do
     before do
-      Driver.create(name: "Driver Driver", vin: "VIN000000", available: nil)
-    end
-    let (:driver_hash) {
-      {
-        driver: {
-          name: "Edit Driver",
-          vin: "EDITVIN00000000",
-          available: nil,
-        },
-      }
-    }
+    
     it "responds with success when getting the edit page for an existing, valid driver" do
       # Arrange
       # Ensure there is an existing driver saved
-
+       get edit_driver_path(1)
       # Act
-      driver = Driver.first
+      
 
       # Assert
       expect {
@@ -145,28 +141,30 @@ describe DriversController do
   end
 
   describe "update" do
-    before do
-      Driver.create(name: "new driver", vin: "newvin0000000", available: false)
-    end
-    let (:driver_hash) {
-      {
-        driver: {
-          name: "new driver",
-          vin: "newvin0000000",
-          available: false,
-        },
-      }
-    }
+  
     it "can update an existing driver with valid information accurately, and redirect" do
 
       # Arrange
       # Ensure there is an existing driver saved
       # Assign the existing driver's id to a local variable
+       new_driver = Driver.create(name: "new driver", vin: "newvin0000000", available: true)
+
+      new_driver_path =
+      {
+        driver: {
+          name: "new driver",
+          vin: "newvin0000000",
+          available: true,
+        },
+      }
+
+      
+
       # Set up the form data
 
       # Act-Assert
       # Ensure that there is no change in Driver.count
-      driver = Driver.first
+
       expect {
         patch driver_path(driver.id), params: driver_hash
       }.must_differ "Driver.count", 0
@@ -214,41 +212,41 @@ describe DriversController do
     end
   end
 
-  # xdescribe "destroy" do
-  #   it "destroys the driver instance in db when driver exists, then redirects" do
-  #     skip
-  #     # Arrange
-  #     # Ensure there is an existing driver saved
-  #      delete_driver = Driver.create( name: "new driver", vin: "newvin0000000",available: false)
-  #       delete_driver_hash = {
-  #         driver: {
-  #         name: "new driver",
-  #         vin: "newvin0000000",
-  #         available: false,
-  #       }
-  #       get delete_driver_path(delete_driver.id)
-  #     # Act-Assert
-  #     # Ensure that there is a change of -1 in Driver.count
-  #      expect {
-  #       delete driver_path(driver.id), params: update_driver_hash
-  #   }.must_change "Driver.count", -1
+  describe "destroy" do
+    it "destroys the driver instance in db when driver exists, then redirects" do
+      skip
+      # Arrange
+      # Ensure there is an existing driver saved
+       delete_driver = Driver.create( name: "new driver", vin: "newvin0000000",available: false)
+        delete_driver_hash = {
+          driver: {
+          name: "new driver",
+          vin: "newvin0000000",
+          available: false,
+        }
+        get driver_path(driver.id)
+      # Act-Assert
+      # Ensure that there is a change of -1 in Driver.count
+       expect {
+        delete driver_path(driver.id), params: update_driver_hash
+    }.must_change "Driver.count", -1
 
-  #     # Assert
-  #     # Check that the controller redirects
-  #     must_respond_with :success
+      # Assert
+      # Check that the controller redirects
+      must_respond_with :success
 
-  #   end
+    end
 
-  #   it "does not change the db when the driver does not exist, then responds with " do
-  #     # Arrange
-  #     # Ensure there is an invalid id that points to no driver
+    it "does not change the db when the driver does not exist, then responds with " do
+      # Arrange
+      # Ensure there is an invalid id that points to no driver
 
-  #     # Act-Assert
-  #     # Ensure that there is no change in Driver.count
+      # Act-Assert
+      # Ensure that there is no change in Driver.count
 
-  #     # Assert
-  #     # Check that the controller responds or redirects with whatever your group decides
+      # Assert
+      # Check that the controller responds or redirects with whatever your group decides
 
-  #   end
-  # end
+    end
+  end
 end

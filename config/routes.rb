@@ -4,16 +4,11 @@ Rails.application.routes.draw do
 
   root to: "homepages#index"
 
-  resources :drivers do
-    resources :trips, only: [:show]
-  end
-  resources :passengers do
-    resources :trips
-  end
+  resources :drivers
+  resources :passengers
+  resources :trips, except: [:index, :new, :create]
 
-  resources :trips, only: [:show, :destroy, :edit, :delete]
-
-  post "/passengers/:id/trips ", to: "trips#passenger_trips"
+  post "/trips/:passenger_id ", to: "trips#passenger_trip", as: "passenger_trip"
 end
 
 # TO DO:

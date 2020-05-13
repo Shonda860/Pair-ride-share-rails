@@ -19,6 +19,7 @@ describe Driver do
       expect(driver).must_respond_to field
     end
   end
+  
 
   describe "relationships" do
     it "can have many trips" do

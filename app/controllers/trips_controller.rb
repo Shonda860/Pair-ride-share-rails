@@ -1,7 +1,4 @@
 class TripsController < ApplicationController
-  def index
-  end
-
   def show # may need a redirect for index
     @trip = Trip.find_by(id: params[:id].to_i)
     if @trip.nil?
@@ -36,14 +33,13 @@ class TripsController < ApplicationController
   end
 
   def destroy
-    trip_id = params[:id]
-    @trip = Trip.find_by(id: trip_id)
+    @trip = Trip.find_by(id: params[:id].to_i)
     if @trip.nil?
       head :not_found
       return
     else
       @trip.destroy
-      redirect_to root_path
+      redirect_to drivers_path
     end
   end
 

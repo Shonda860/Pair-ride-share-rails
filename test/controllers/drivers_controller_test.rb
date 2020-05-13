@@ -2,9 +2,9 @@ require "test_helper"
 
 describe DriversController do
   # Note: If any of these tests have names that conflict with either the requirements or your team's decisions, feel empowered to change the test names. For example, if a given test name says "responds with 404" but your team's decision is to respond with redirect, please change the test name.
-  let (:driver) {
-    Driver.create name: "driver sample", vin: "VIN99999999", available: true
-  }
+  # let (:driver) {
+  #   Driver.create name: "driver sample", vin: "VIN99999999", available: true
+  # }
 
   describe "index" do
     it "responds with success when there are many drivers saved" do
@@ -33,7 +33,13 @@ describe DriversController do
     it "responds with success when showing an existing valid driver" do
       # Arrange
       # Ensure that there is a driver saved
-
+      driver = Driver.create(
+        {
+          name: "new driver",
+          vin: "newvin0000000",
+          available: true,
+        }
+      )
       # Act
       get drivers_path(driver.id)
       # Assert
@@ -143,39 +149,36 @@ describe DriversController do
       # Arrange
       # Ensure there is an existing driver saved
       # Assign the existing driver's id to a local variable
-      driver = Driver.create(
+      new_driver = Driver.create(
         {
           name: "new driver",
           vin: "newvin0000000",
-          available: true,
+
         }
       )
-      driver_id = Driver.find_by(name: "new driver").id
+      new_driver_hash = {
+        driver: {
+          name: "Bad driver",
+          vin: "newvin0000000",
+        },
+      }
 
-      new_driver_hash =
-        {
-          driver: {
-            name: "Bad driver",
-            vin: "newvin0000000",
-          },
-        }
+      updated_driver = Driver.find_by(id: new_driver_hash.id)
 
       # Set up the form data
-
       # Act-Assert
       # Ensure that there is no change in Driver.count
-
       expect {
-        patch driver_path(driver.id), params: new_driver_hash
+        patch driver_path(new_driver.id), params: new_driver_hash
       }.must_differ "Driver.count", 0
       # Assert
       # Use the local variable of an existing driver's id to find the driver again, and check that its attributes are updated
       # Check that the controller redirected the user
       # find_driver = Driver.last.id
-      driver = Driver.find(id: driver_id)
-      expect(driver.name).must_equal new_driver_hash[:driver][:name]
-      expect(driver.vin).must_equal new_driver_hash[:driver][:vin]
-      must_redirect_to driver_path(driver_id)
+
+      expect(updated_driver.name).must_equal new_driver_hash[:driver][:name]
+      expect(updated_driver.vin).must_equal new_driver_hash[:driver][:vin]
+      must_redirect_to driver_path(new_driver)
     end
 
     it "does not update any driver if given an invalid id, and responds with a 404" do
@@ -227,7 +230,6 @@ describe "destroy" do
     # Arrange
     # Ensure there is an existing driver saved
     driver
-
     # new_passenger = Passenger.create(
     #   {
     #     name: "new driver",
@@ -235,21 +237,18 @@ describe "destroy" do
     #     available: true,
     #   },
     # )
-
     # trip_1 = Trip.create(driver_id: id, pasenger_id: new_passenger.id, date: Date.today, rating: 5, cost: nil)
     # trip_2 = Trip.create(driver_id: id, pasenger_id: new_passenger.id, date: Datte.today, rating: 1, cost: nil)
 
     # Act-Assert
     # Ensure that there is a change of -1 in Driver.count
     expect {
-      delete driver_path(driver[:id])
+      delete driver_path(driver.id)
     }.must_differ "Driver.count", -1
-
     # Assert
     # Check that the controller redirects
     must_redirect_to drivers_path
   end
-
   it "does not change the db when the driver does not exist, then responds with " do
     # Arrange
     # Ensure there is an invalid id that points to no driver

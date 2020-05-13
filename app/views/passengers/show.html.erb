@@ -10,9 +10,7 @@
   <%= link_to "Request Ride", passenger_trip_path({ passenger_id: @passenger.id }) %>
 </section>
 
-
-
-<h2>Passenger <%= @passenger.name %> Trips</h2>      
+<h2>Passenger - <%= @passenger.name %> - Trips</h2>      
 <table class="table-bordered">
 <thead>
     <tr>
@@ -44,7 +42,3 @@
    <p>No trips for this Passenger</p>
 <% end %>
 </div>
-
-<%= link_to "Back to All Passengers |", passengers_path %> 
-<%= link_to "Back to All Drivers", drivers_path %>
-

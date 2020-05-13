@@ -2,16 +2,16 @@
 <div class="container">
 <h2><%= @driver.name %></p></h2>
 <p>Driver ID: <%= @driver.id %>
-<p> Vin Number: $<%= @driver.vin %><p>  
-<p> Total Earnings: $<%= @driver.driver_total_earnings %><p>  
-<p> Avg Rating:<%= @driver.driver_avg_rating %><p>
+<p> Vin Number: <%= @driver.vin %><p>  
+<p> Total Earnings: <%= number_to_currency(@driver.driver_total_earnings) %><p>  
+<p> Avg Rating: <%= @driver.driver_avg_rating %><p>
 <p>
- <span class="button_to"><%= link_to "Edit Driver", edit_driver_path(@driver.id) %></span>
+ <span class="button_to"><%= link_to "Edit Driver |", edit_driver_path(@driver.id) %></span>
  <span class="button_to">
  <%= link_to("Delete Driver", driver_path(@driver.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete driver button" }) %></span></li>
  </section>
  
- <h2>Driver <%= @driver.name %> Trips</h2>      
+ <h2>Driver - <%= @driver.name %> - Trips</h2>      
 <table class="table-bordered">
 <thead>
     <tr>
@@ -32,7 +32,7 @@
     <td><%= trip.date %></td>
     <td><%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %></td>
     <td><%= trip.rating %></td>
-    <td><%= (((trip.cost.to_f / 100) * 0.8) - 1.65).round(2) %></td>
+    <td>$<%= (((trip.cost.to_f / 100) * 0.8) - 1.65).round(2) %></td>
     <td><%= link_to "Delete Trip", trip_path(trip.driver.id), method: :delete, data: { confirm: "Are you sure?" } %></td>
     </tr>
   <% end %>
@@ -41,6 +41,3 @@
    <p>No trips for this Driver</p>
 <% end %>
 </div>
-<%= link_to "Back to Drivers", drivers_path %> 
-<%= link_to "Back to All Passengers", passengers_path %>
-

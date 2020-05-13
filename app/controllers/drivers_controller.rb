@@ -25,11 +25,11 @@ class DriversController < ApplicationController
   end
 
   def create
-    driver = Driver.new(
-     driver_params
+    @driver = Driver.new(
+      driver_params
     )
-    if driver.save
-      redirect_to drivers_path
+    if @driver.save
+      redirect_to driver_path(@driver.id)
     else
       render :new, status: :bad_request
     end
@@ -41,7 +41,7 @@ class DriversController < ApplicationController
       head :not_found
       return
     elsif @driver.update(
-     driver_params
+      driver_params
 
     )
       redirect_to driver_path(@driver.id)

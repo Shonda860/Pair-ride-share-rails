@@ -57,7 +57,7 @@ class TripsController < ApplicationController
       @trip = Trip.new(
         date: Date.today,
         rating: nil,
-        cost: 100,
+        cost: 1000,
         passenger_id: params[:passenger_id],
         driver_id: driver.id,
       )

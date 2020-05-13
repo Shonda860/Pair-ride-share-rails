@@ -1,20 +1,20 @@
-<section class="title">Passenger Details:</h2>
-	
-		<button class="button_to"><%= link_to "Edit Trip |", edit_passenger_path(@passenger.id) %></span>
-  		<span class="button_to"><%= link_to "Delete Trip", passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
-</section>
-<p>Passenger Name: <%= @passenger.name %></p>
+
+<section class="title"><h2>Passenger Details:</h2>
+<div class="container">
+<h2><%= @passenger.name %></h2>
 <p>Passenger ID: <%= @passenger.id %></p>
 <p>Passenger Phone Number: <%= @passenger.phone_num %></p>
 <p>Total Charges: <%= number_to_currency(@passenger.total_charges, precision: 2) %><p>
   <span class="button_to"><%= link_to " Edit |", edit_passenger_path(@passenger.id) %></span>
   <span class="button_to"><%= link_to "Delete Passenger", passenger_path(@passenger.id), method: :delete, data: { confirm: "Are you sure?" } %> </span>
-  <%= button_to "Request Ride", passenger_trip_path({ passenger_id: @passenger.id }) %>
+  <%= link_to "Request Ride", passenger_trip_path({ passenger_id: @passenger.id }) %>
+</section>
 
 
-<div class="container">
-<h2>Passenger Trips</h2>      
+
+<h2>Passenger <%= @passenger.name %> Trips</h2>      
 <table class="table-bordered">
+<thead>
     <tr>
       <th>Trip ID</th>
       <th>Trip Date</th>
@@ -22,18 +22,21 @@
       <th>Passenger Name</th>
       <th>Rating</th>
       <th>Trip Cost</th>
+      <th>Action</th>
     </tr>
+    </thead>
+    <tbody>
 <% if @passenger.trips.length > 0 %>
 
   <% @passenger.trips.each do |trip| %>
     <tr>
-    <td><%= link_to trip.id, trip_path(trip.id) %><td>
+    <td><%= link_to trip.id, trip_path(trip.id) %></td>
     <td><%= trip.date %></td>
     <td><%= link_to Driver.find_by(id: trip.driver_id).name, driver_path(trip.driver.id) %></td>
     <td><%= link_to Passenger.find_by(id: trip.passenger_id).name, passenger_path(trip.passenger.id) %></td>
    <td><%= trip.rating %></td>
    <td><%= number_to_currency(trip.cost / 100) %></td>
-     <td> <%= link_to("Delete Trip", passenger_path(@passenger.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete passenger button" }) %> </td>
+     <td> <%= link_to " Edit |", edit_trip_path(trip.id) %></span><%= link_to("Delete", edit_trip_path(@passenger.id), { class: "button", method: :delete, data: { confirm: "Are you sure?" }, alt: "delete passenger button" }) %> </td>
    </tr>
   <% end %>
   </table>

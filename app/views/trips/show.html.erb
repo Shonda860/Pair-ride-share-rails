@@ -1,5 +1,6 @@
 <h2>Show-Trip page </h2>
 <p>Trip ID #: <%= @trip.id %></p>
+
 <p>Trip Date: <%= @trip.date %></p>
 <p>Driver Name: <%= link_to @trip.driver.name, driver_path(@trip.driver.id) %></p>
 <p>Passenger Name: <%= link_to @trip.passenger.name, passenger_path(@trip.passenger.id) %></p>

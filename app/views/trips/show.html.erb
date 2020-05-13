@@ -23,6 +23,7 @@
         <td><%= link_to @trip.driver.name, driver_path(@trip.driver.id) %></td>
 
         <td><%= link_to @trip.passenger.name, passenger_path(@trip.passenger.id) %></td>
+        <td><%= link_to @trip.driver.name, driver_path(@trip.driver.id) %></td>
         <td><%= @trip.rating %></td>
         <td><%= number_to_currency(@trip.cost / 100, precision: 2) %></td>
     </tr>

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :trips, except: [:index, :new, :create]
 
   post "/trips/:passenger_id ", to: "trips#passenger_trip", as: "passenger_trip"
+  patch "/trips/:id/mark_complete", to: "trips#mark_complete", as: "complete"
 end
 
 # TO DO:
